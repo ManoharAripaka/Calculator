@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="htm<" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Standard Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  </head>
+  <style>
+    body{
+      background-color : #efefef;
+      font-family: 'Roboto', sans-serif;
+      margin:auto;
+    }
+    .display h2{
+      border-radius: 10px;
+      background-color: #230245;
+      padding:19px;
+      color: white;
+      width: 300px;
+    }
+    .display input{
+      border: 1px solid transparent;
+      border-radius:5px;
+      padding: 3px;
+      font-size: 1.5em;
+      width:300px;
+    }
+    .display #result{
+      background-color: white;
+    }
+    .button {
+      width:265px;
+      text-align:left;
+    }
+    .button button{
+      background-color:#edd155;
+      border: 1px solid #edd1ff;
+      border-radius: 5px;
+      text-align:center;
+      padding: 15px;
+      font-size: 1.2em;
+      margin-left:-4px;
+      width: 67px
+    }
+    .button #key1{
+      margin-left: 0px;
+      height: 108px;
+      position: absolute;
+    }
+    .button #key2{
+      width: 135px;
+      position: absolute;
+      margin-left: 0px
+    }
+    #history{
+      font-size: 1em;
+      resize: none;
+      margin:10px 0px 0px -5px;
+      font-family: 'Roboto', sans-serif;
+    }
+    #history::first-line{
+      font-size: 1.5em;
+    }
+  </style>
+  <script>
+    function log(keys){
+      keys.which == '13' ? oper() : null
+    }
+    function enter(value){
+      let answer = document.getElementById("result").value
+      answer === '' ? document.getElementById("text").value = document.getElementById("text").value + value :
+      isNaN(value) ?
+      (document.getElementById("result").value = '',
+      document.getElementById("text").value = answer + value) : document.getElementById("text").value = value
+    }
+    function clears(){
+      document.getElementById("text").value = '',
+      document.getElementById("result").value = ''
+    }
+    function back(){
+      return(document.getElementById("text").value = document.getElementById("text").value.substring(0,document.getElementById("text").value.length - 1))
+    }
+    function oper(){
+      document.getElementById('history').value = document.getElementById('text').value + '=' + eval(document.getElementById("text").value) + '\n' + document.getElementById('history').value
+      return (document.getElementById("result").value = eval(document.getElementById("text").value))
+    }
+  </script>
+  <body>
+    <center>
+      <div class="display">
+        <h2>STANDARD CALCULATOR</h2>
+        <input id="text" type="text" name="display" placeholder="0" onkeypress="log(event)"><br/>
+        <input id="result" type="text" name="display" placeholder="Ans" disabled><br/><br/>
+      </div>
+      <div class="button">
+        <tr>
+          <td><button id='key' style="background-color: red" type="button" name="AC" onclick=clears()>AC</button></td>
+          <td><button id='key' type="button" name="CE" onclick=back()>CE</button></td>
+          <td><button id='key' type="button" name="/" onclick=enter("/")>/</button></td>
+          <td><button id='key' type="button" name="x" onclick=enter("*")>x</button></td>
+        </tr><br/>
+        <tr>
+          <td><button id='key' type="button" name="7" onclick=enter("7")>7</button></td>
+          <td><button id='key' type="button" name="8" onclick=enter("8")>8</button></td>
+          <td><button id='key' type="button" name="9" onclick=enter("9")>9</button></td>
+          <td><button id='key' type="button" name="-" onclick=enter("-")>-</button></td>
+        </tr><br/>
+        <tr>
+          <td><button id='key' type="button" name="4" onclick=enter("4")>4</button></td>
+          <td><button id='key' type="button" name="5" onclick=enter("5")>5</button></td>
+          <td><button id='key' type="button" name="6" onclick=enter("6")>6</button></td>
+          <td><button id='key1' type="button" name="+" onclick=enter("+")>+</button></td>
+        </tr><br/>
+        <tr>
+          <td><button id='key' type="button" name="1" onclick=enter("1")>1</button></td>
+          <td><button id='key' type="button" name="2" onclick=enter("2")>2</button></td>
+          <td><button id='key' type="button" name="3" onclick=enter("3")>3</button></td>
+        </tr><br/>
+        <tr>
+          <td><button id='key' type="button" name="0" onclick=enter("0")>0</button></td>
+          <td><button id='key' type="button" name="." onclick=enter(".")>.</button></td>
+          <td><button id='key2' style='background-color: green' type="button" name="=" onclick=oper()>=</button></td>
+        </tr>
+      </div>
+      <div class="footer">
+        <br/><label><strong>History</strong></label><br/>
+        <textarea id="history" name="name" rows="3" cols="31" placeholder="Empty" disabled></textarea>
+      </div>
+    </center>
+  </body>
+</html>
